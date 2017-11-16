@@ -62,3 +62,5 @@ def fill_json(template, args, kwargs):
 
     elif isinstance(template, list):
         return [same_args(v) for v in template]
+
+    return template
