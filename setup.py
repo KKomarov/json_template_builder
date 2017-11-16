@@ -10,7 +10,7 @@ requires = [
 
 setup(
     name='jtb',
-    version='0.5',
+    version='0.5.2',
     description='Simple json builder from json template.',
     long_description='Github: https://github.com/KKomarov/json_template_builder',
     author='Konstantin Komarov',
@@ -19,6 +19,9 @@ setup(
     packages=packages,
     package_data={'': ['LICENSE']},
     package_dir={'jtb': 'jtb'},
+    entry_points={
+        'console_scripts': ['jtb=jtb:main'],
+    },
     include_package_data=True,
     install_requires=requires,
     license='MIT',
