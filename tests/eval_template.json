@@ -1,0 +1,4 @@
+{
+  "Who": {"JTBEval": "whoami"},
+  "Where": {"JTBEval": "pwd"}
+}
