@@ -3,15 +3,16 @@ import copy
 import functools
 import json
 import logging
-import sys
+import os
 import subprocess
+import sys
 
 import six
 
 from .pushd import pushd
 
 __all__ = ['main', 'fill_json']
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG if os.environ.get('JTB_DEBUG') else logging.INFO)
 
 
 def main():
@@ -50,6 +51,7 @@ def fill_json(template, args, kwargs):
     elif isinstance(template, dict):
         if 'JTBTemplate' in template:
             sub_template_name = template['JTBTemplate']
+            logging.debug('Current dir: %s', os.getcwd())
             with open(sub_template_name, 'r') as f:
                 sub_template = json.load(f)
             new_kwargs = copy.deepcopy(kwargs)
