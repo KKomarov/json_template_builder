@@ -12,7 +12,11 @@ import six
 from .pushd import pushd
 
 __all__ = ['main', 'fill_json']
-logging.basicConfig(level=logging.DEBUG if os.environ.get('JTB_DEBUG') else logging.INFO)
+logger = logging.getLogger('jtb')
+logger.setLevel(logging.DEBUG if os.environ.get('JTB_DEBUG') else logging.INFO)
+logger.addHandler(logging.StreamHandler())
+logger.handlers[0].setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(name)s:%(lineno)s %(message)s'))
+logger.handlers[0].setLevel(logging.INFO)
 
 
 def main():
@@ -43,7 +47,7 @@ def main():
 
 def fill_json(template, args, kwargs):
     same_args = functools.partial(fill_json, args=args, kwargs=kwargs)
-    logging.info('Got args: %s', kwargs)
+    logger.debug('Got args: %s', kwargs)
 
     if isinstance(template, six.string_types):
         return template.format(*args, **kwargs)
@@ -51,7 +55,7 @@ def fill_json(template, args, kwargs):
     elif isinstance(template, dict):
         if 'JTBTemplate' in template:
             sub_template_name = template['JTBTemplate']
-            logging.debug('Current dir: %s', os.getcwd())
+            logger.debug('Current dir: %s', os.getcwd())
             with open(sub_template_name, 'r') as f:
                 sub_template = json.load(f)
             new_kwargs = copy.deepcopy(kwargs)

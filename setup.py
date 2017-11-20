@@ -10,7 +10,7 @@ requires = [
 
 setup(
     name='jtb',
-    version='0.5.4',
+    version='0.5.5',
     description='Simple json builder from json template.',
     long_description='Github: https://github.com/KKomarov/json_template_builder',
     author='Konstantin Komarov',
